@@ -1,4 +1,4 @@
-# laravel_api_bank :
+# laravel_api :
  Api criada em Laravel com autentificação JWT
 
  Sistema de loguin e Registro
