@@ -1,7 +1,7 @@
 # laravel_api :
  Api criada em Laravel com autentificação JWT
 
- Sistema de loguin e Registro
+ Sistema de login e Registro
  
  # Laravel v8.29.0 (PHP v8.0.0)
  
