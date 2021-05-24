@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Day;
-use App\Models\User;
+
 
 class DayController extends Controller
 {
@@ -59,17 +58,29 @@ class DayController extends Controller
 
     public function update(Request $request, $id) {
         $array = ['error'=>''];
-        $user_name = $request->input('user_name');
-        $description = $request->input('description');
-        $created_at =  $request->input('created_at');
+
+        $validator = Validator::make($request->all(),[
+ 
+            'user_name'=> 'required',
+            'description'=> 'required',
+            'created_at'=> 'required' 
         
-        $day = day::find($id);
-        $day->user_name = $user_name;
-        $day->description = $description;
-        $day->created_at = $created_at;
-        
-        $day->save();
-       return   $array['day'] = $day;
+        ]);
+
+        if(!$validator->fails() && Day::find($id)) {
+            $user_name = $request->input('user_name');
+            $description = $request->input('description');
+            $created_at =  $request->input('created_at');
+
+            $day =  Day::find($id);
+            $day->user_name = $user_name;
+            $day->description = $description;
+            $day->created_at = $created_at;
+            $day->save();
+            return   $array['day'] = $day;
+        } else {
+            return   $array['error'] = "id não encontrado";
+        }    
 }
 
     public function destroy($id) {

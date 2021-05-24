@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         
         DB::table('delivery')->insert([
             'id_day'=> 1,
-            'type'=> 'prédio',
+            'type_delivery'=> 'prédio',
             'user_name'=> 'Rafael Buçard',
             'client'=> 'Jorge Nunes',
             'description'=> 'Endereço tal e tal / contato 9882345/ Deixar na portaría',
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('delivery')->insert([
             'id_day'=> 1,
-            'type'=> 'prédio',
+            'type_delivery'=> 'prédio',
             'user_name'=> 'Rafael Buçard',
             'client'=> 'Jorge Nunes',
             'description'=> 'Endereço tal e tal / contato 9882345/ Deixar na portaría',
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('delivery')->insert([
             'id_day'=> 2,
-            'type'=> 'prédio',
+            'type_delivery'=> 'prédio',
             'user_name'=> 'Rafael Buçard',
             'client'=> 'Jorge Nunes',
             'description'=> 'Endereço tal e tal / contato 9882345/ Deixar na portaría',
@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('delivery')->insert([
             'id_day'=> 2,
-            'type'=> 'prédio',
+            'type_delivery'=> 'prédio',
             'user_name'=> 'Rafael Buçard',
             'client'=> 'Jorge Nunes',
             'description'=> 'Endereço tal e tal / contato 9882345/ Deixar na portaría',
@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('delivery')->insert([
             'id_day'=> 3,
-            'type'=> 'prédio',
+            'type_delivery'=> 'prédio',
             'user_name'=> 'Rafael Buçard',
             'client'=> 'Jorge Nunes',
             'description'=> 'Endereço tal e tal / contato 9882345/ Deixar na portaría',
@@ -100,7 +100,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('delivery')->insert([
             'id_day'=> 3,
-            'type'=> 'prédio',
+            'type_delivery'=> 'prédio',
             'user_name'=> 'Rafael Buçard',
             'client'=> 'Jorge Nunes',
             'description'=> 'Endereço tal e tal / contato 9882345/ Deixar na portaría',

@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DayController;
-use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\UserController;
 
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
@@ -40,8 +39,8 @@ Route::middleware('auth:api')->group(function(){
     //
     Route::get('/delivery',[DeliveryController::class,'show']);
     Route::put('/delivery/{id}',[DeliveryController::class,'update']);
-    Route::post('/delivery/{id}',[DeliveryController::class,'store']);
-    Route::delete('/delivery/{id}',[DeliveryController::class,'delete']);
+    Route::post('/delivery',[DeliveryController::class,'store']);
+    Route::delete('/delivery/{id}',[DeliveryController::class,'destroy']);
     //
 
     /*

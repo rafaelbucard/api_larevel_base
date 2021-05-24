@@ -37,7 +37,7 @@ class Createalltable extends Migration
         Schema::create('delivery', function(Blueprint $table){
             $table->id();
             $table->integer('id_day');
-            $table->string('type');
+            $table->string('type_delivery');
             $table->string('user_name');
             $table->string('client');
             $table->text('description');

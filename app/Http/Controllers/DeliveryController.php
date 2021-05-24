@@ -5,105 +5,135 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\Delivery;
-use App\Models\User;
 
 class DeliveryController extends Controller
 {
-    public function balanceUser($id){
+    public function show(){
         $array = ['error'=>''];
-        $balanceUser = Delivery::where('id_user',$id)->get();
-       //var_dump($balanceUser);exit;
-        if($balanceUser) {
-            $array['balance'] = $balanceUser;
+        $allDelivery = Delivery::all();
+    
+        if($allDelivery) {
+            $array['alldelivery'] = $allDelivery;
         
         } else {
-       $array['error']='Id não encontrado';  }
+       $array['error']='Nem um delivery encontrado';  }
         return $array;
     }
 
-    public function getId($id, $id_balance) {
-        $array = ['error'=>''];
-        $balanceUser = Delivery::find($id_balance);
-        $user = User::find($id);
-       
-        if($balanceUser->id_user == $user->id) {
-            $array['balance'] = $balanceUser;
-        
-        } else {
-       $array['error']='Id e usuário não batem';  }
+    
 
-        return $array;
-
-    }
-
-    public function insert(Request $request, $id){
+    public function store(Request $request){
         $array = ['error'=> ''];
-
-        $user = User::find($id)->count();
-        if($user>0){
+        
         $validator = Validator::make($request->all(),[
  
-            'values' =>'required'
-        
+            'id_day'=> 'required',
+            'type_delivery'=> 'required',
+            'user_name'=> 'required',
+            'client'=> 'required',
+            'description'=> 'required',
+            'price'=> 'required',
+            'created_at'=> 'required',
+            'delivery_data'=> 'required',
+            'status'=> 'required'
+            
         ]);
 
         if(!$validator->fails()) {
-            $id_user = $id;
-            $value = $request->input('values');
-           
+            $id_day = $request->input('id_day');
+            $type_delivery = $request->input('type_delivery');
+            $user_name = $request->input('user_name');
+            $client = $request->input('client');
+            $description = $request->input('description');
+            $price =  $request->input('price');
+            $created_at =  $request->input('created_at');
+            $delivery_data = $request->input('delivery_data');
+            $status = $request->input('status');
+          
 
 
-            $newBalance = new Delivery();
-            $newBalance->id_user = $id_user;
-            $newBalance->values = $value;
-            $newBalance->save();
+            $newDelivery = new Delivery();
+            $newDelivery->id_day = $id_day;
+            $newDelivery->description = $description;
+            $newDelivery->created_at = $created_at;
+            $newDelivery->user_name = $user_name;
+            $newDelivery->type_delivery = $type_delivery;
+            $newDelivery->client = $client;
+            $newDelivery->price = $price;
+            $newDelivery->delivery_data = $delivery_data;
+            $newDelivery->status = $status;
+            $newDelivery->save();
             return response()
             ->json(array(
-                'success' => true, 'last_insert_id' => $newBalance->id,'user' => $newBalance->id_user, 'value'=>$newBalance->values
+                'success' => true, 'last_insert_id' => $newDelivery->id,'user' => $newDelivery->delivery_data, 
             ), 200);;
-           
-           
+            
         } else {
 
            $array['error'] = $validator->errors()->first();
            return $array;
-        }
-    
-        return  $array['error'] = 'Deposito não encontrado';
-      }  
-        
-      
+        } 
     }
 
-    public function sumsId($id){
-        $array = ['error'=>''];
-        $sums = 0;
-        $balanceUser = Delivery::where('id_user',$id)->get();
-       //var_dump($balanceUser);exit;
-        if($balanceUser) {
-            foreach($balanceUser as $item) {
+    public function update(Request $request, $id) {
 
-                $sums += floatval($item->values);
-                
-            }
-          
+        $array = ['error'=>''];
+
+        $validator = Validator::make($request->all(),[
+ 
+            'id_day'=> 'required',
+            'type_delivery'=> 'required',
+            'user_name'=> 'required',
+            'client'=> 'required',
+            'description'=> 'required',
+            'price'=> 'required',
+            'created_at'=> 'required',
+            'delivery_data'=> 'required',
+            'status'=> 'required'
             
-            $array['balancesums'] = $sums;
+        ]);
         
-        } else {
-       $array['error']='Id não encontrado';  }
-        return $array;
-    }
+        if(!$validator->fails() && Delivery::find($id)) {
+            $id_day = $request->input('id_day');
+            $type_delivery = $request->input('type_delivery');
+            $user_name = $request->input('user_name');
+            $client = $request->input('client');
+            $description = $request->input('description');
+            $price =  $request->input('price');
+            $created_at =  $request->input('created_at');
+            $delivery_data = $request->input('delivery_data');
+            $status = $request->input('status');
 
-    public function delete($id) {
+            
+
+        
+            
+            $delivery = Delivery::find($id);
+            $delivery->id_day = $id_day;
+            $delivery->description = $description;
+            $delivery->created_at = $created_at;
+            $delivery->user_name = $user_name;
+            $delivery->type_delivery = $type_delivery;
+            $delivery->client = $client;
+            $delivery->price = $price;
+            $delivery->delivery_data = $delivery_data;
+            $delivery->status = $status;
+            $delivery->save();
+            
+        
+            return   $array['delivery'] = $delivery;
+        } else {
+            return $array['error'] = "id não encontrado";
+        }    
+}
+
+    public function destroy($id) {
         $array = ['error'=>''];
-        $balanceUser = Delivery::find($id);
-        if($balanceUser){
-            $array ['balance'] = 'Deletado balanço';
-            $balanceUser->delete();
+        $deliveryUser = Delivery::find($id);
+        if($deliveryUser){
+            $array ['delivery'] = 'Deletado delivery';
+            $deliveryUser->delete();
         } else {
             $array['error'] = 'Id não encontrado';
         }
